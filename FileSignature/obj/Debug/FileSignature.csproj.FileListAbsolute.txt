@@ -1,0 +1,5 @@
+c:\users\vitya\documents\visual studio 2012\Projects\FileProcessing\FileSignature\bin\Debug\FileSignature.exe
+c:\users\vitya\documents\visual studio 2012\Projects\FileProcessing\FileSignature\bin\Debug\FileSignature.pdb
+c:\users\vitya\documents\visual studio 2012\Projects\FileProcessing\FileSignature\obj\Debug\FileSignature.csprojResolveAssemblyReference.cache
+c:\users\vitya\documents\visual studio 2012\Projects\FileProcessing\FileSignature\obj\Debug\FileSignature.exe
+c:\users\vitya\documents\visual studio 2012\Projects\FileProcessing\FileSignature\obj\Debug\FileSignature.pdb
