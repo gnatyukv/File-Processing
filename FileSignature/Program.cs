@@ -26,6 +26,17 @@ namespace FileSignature
 
             MemoryLimit = 100000000; // B
 
+            beginTime = DateTime.Now;
+
+            StartPipeline(filePath, blockSize);
+
+            endTime = DateTime.Now;
+            Console.WriteLine("\nRun time: {0} s", (endTime - beginTime).Duration().TotalSeconds);
+            Console.ReadLine();
+        }
+
+        static void StartPipeline(string filePath, long blockSize)
+        {
             int threadCount;
             int boundedCap;
             SetPipelineParams(blockSize, out threadCount, out boundedCap);
@@ -37,25 +48,12 @@ namespace FileSignature
                 blocksToCompute[i] = new SyncQueue<Block>(boundedCap);
             }
 
-            beginTime = DateTime.Now;
-
-            StartPipeline(filePath, blockSize, threadCount, dataBlocks, blocksToCompute);
-
-            endTime = DateTime.Now;
-            Console.WriteLine("\nRun time: {0} s", (endTime - beginTime).Duration().TotalSeconds);
-
-            Console.ReadLine();
-        }
-
-        static void StartPipeline(string filePath, long blockSize, int threadCount, SyncQueue<Block> dataBlocks, SyncQueue<Block>[] blocksToCompute)
-        {
             var computeStages = new Thread[threadCount];
             var readStage = new Thread(() => HashProcessor.ReadFile(dataBlocks, filePath, blockSize));
             readStage.Start();
             for (int i = 0; i < threadCount; i++)
             {
-                // avoid capturing 'i' variable in an anonymous method
-                int k = i;
+                int k = i; // for correct variable capturing
                 computeStages[i] = new Thread(() => HashProcessor.ComputeHashes(dataBlocks, blocksToCompute[k]));
                 computeStages[i].Start();
             }
