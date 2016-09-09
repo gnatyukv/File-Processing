@@ -1,0 +1,5 @@
+# File-Processing
+Contains project to compute a file signature
+
+Format of command line:
+FileSignature.exe [file path] [block size]
