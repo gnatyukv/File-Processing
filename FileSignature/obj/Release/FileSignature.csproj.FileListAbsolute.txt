@@ -1,0 +1,4 @@
+C:\Users\Vitya\Documents\Visual Studio 2012\Projects\FileProcessing\FileSignature\bin\Release\FileSignature.exe
+C:\Users\Vitya\Documents\Visual Studio 2012\Projects\FileProcessing\FileSignature\bin\Release\FileSignature.pdb
+C:\Users\Vitya\Documents\Visual Studio 2012\Projects\FileProcessing\FileSignature\obj\Release\FileSignature.exe
+C:\Users\Vitya\Documents\Visual Studio 2012\Projects\FileProcessing\FileSignature\obj\Release\FileSignature.pdb
