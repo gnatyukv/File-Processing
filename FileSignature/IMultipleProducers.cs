@@ -6,7 +6,7 @@ using System.Text;
 namespace FileSignature
 {
     /// <summary>
-    /// All items that implement this interface may be processed by Multiplexer<T> class
+    /// Any item that implements this interface may be processed by Multiplexer<T> class
     /// </summary>
     interface IMultipleProducers
     {

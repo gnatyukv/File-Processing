@@ -48,16 +48,23 @@ namespace FileSignature
                 blocksToCompute[i] = new SyncQueue<Block>(boundedCap);
             }
 
-            var computeStages = new Thread[threadCount];
-            var readStage = new Thread(() => HashProcessor.ReadFile(dataBlocks, filePath, blockSize));
+            Thread readStage;
+            Thread[] computeStages;
+            Thread multiplexStage;
+
+            computeStages = new Thread[threadCount];
+            readStage = new Thread(() => HashProcessor.ReadFile(dataBlocks, filePath, blockSize));
+            readStage.Name = "Read Thread";
             readStage.Start();
             for (int i = 0; i < threadCount; i++)
             {
                 int k = i; // for correct variable capturing
                 computeStages[i] = new Thread(() => HashProcessor.ComputeHashes(dataBlocks, blocksToCompute[k]));
+                computeStages[i].Name = "Thread " + i + 1;
                 computeStages[i].Start();
             }
-            var multiplexStage = new Thread(() => HashProcessor.MultiplexProducers(blocksToCompute));
+            multiplexStage = new Thread(() => HashProcessor.MultiplexProducers(blocksToCompute));
+            multiplexStage.Name = "Mult Thread";
             multiplexStage.Start();
 
             readStage.Join();

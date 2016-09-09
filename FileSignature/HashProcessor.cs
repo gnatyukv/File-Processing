@@ -7,12 +7,15 @@ namespace FileSignature
 {
     static class HashProcessor
     {
+        private static bool fault;
+
         public static void ReadFile(SyncQueue<Block> output, string filePath, long blockSize)
         {
             try
             {
                 foreach (var block in FileReader.GetNextBlock(filePath, blockSize))
                 {
+                    if (fault) break; // stop if any errors occurred while consuming
                     output.Enqueue(block);
                 }
             }
@@ -39,6 +42,7 @@ namespace FileSignature
             }
             catch (Exception ex)
             {
+                fault = true; // signal producer to stop
                 Console.WriteLine(ex.ToString());
             }
             finally
@@ -65,6 +69,7 @@ namespace FileSignature
             }
             catch (Exception ex)
             {
+                fault = true; // signal producer to stop
                 Console.WriteLine(ex.ToString());
             }
             finally
